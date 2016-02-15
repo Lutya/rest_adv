@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'measure_id')->textInput() ?>
 
+    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">

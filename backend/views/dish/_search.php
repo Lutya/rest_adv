@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'measure_id') ?>
 
+    <?php // echo $form->field($model, 'price') ?>
+
     <?php // echo $form->field($model, 'note') ?>
 
     <div class="form-group">

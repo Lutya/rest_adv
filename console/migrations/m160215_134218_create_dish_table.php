@@ -13,6 +13,7 @@ class m160215_134218_create_dish_table extends Migration
     			'dish_type_id' => Schema::TYPE_INTEGER,
     			'count' => Schema::TYPE_FLOAT . ' NOT NULL',
     			'measure_id' => Schema::TYPE_INTEGER,
+    			'price' => Schema::TYPE_DECIMAL . '(5,2) NOT NULL',
     			'note' => Schema::TYPE_TEXT,
     	]);
     	

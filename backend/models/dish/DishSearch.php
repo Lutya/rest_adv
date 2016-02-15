@@ -20,7 +20,7 @@ class DishSearch extends Dish
         return [
             [['id', 'dish_type_id', 'measure_id'], 'integer'],
             [['name', 'note'], 'safe'],
-            [['count'], 'number'],
+            [['count', 'price'], 'number'],
         ];
     }
 
@@ -61,6 +61,7 @@ class DishSearch extends Dish
             'dish_type_id' => $this->dish_type_id,
             'count' => $this->count,
             'measure_id' => $this->measure_id,
+            'price' => $this->price,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

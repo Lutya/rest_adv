@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dish_type_id',
             'count',
             'measure_id',
+            'price',
             'note:ntext',
         ],
     ]) ?>
