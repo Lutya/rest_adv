@@ -7,7 +7,7 @@ use backend\models\dish\Dish;
 use backend\models\dish\DishSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * DishController implements the CRUD actions for Dish model.
@@ -16,14 +16,20 @@ class DishController extends Controller
 {
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
+         return [
+	        'access' => [
+	            'class' => AccessControl::className(),
+	        	//'only' => ['create', 'update'],
+	            'rules' => [
+	                [
+	                    //'actions' => ['create', 'delete', 'update', 'view'],
+	                    'allow' => true,
+	                	'actions' => ['create', 'update', 'view', 'index', 'delete'],
+	                    'roles' => ['manager'],
+	                ],
+	            ],
+	        ],
+	    ];
     }
 
     /**

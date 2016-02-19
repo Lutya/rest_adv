@@ -38,8 +38,18 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
     ];
     if (Yii::$app->user->isGuest) {
+    	$menuItems[] = ['label' => 'guest'];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+    	$menuItems[] = [
+    			'label' => 'Dishes',
+    			'url' => ['/dish/index'],
+    	];
+    	$menuItems[] = [ 'label' => 'References', 'items' => [
+            ['label' => 'Measures', 'url' => ['measure/index']],
+            ['label' => 'Dish type', 'url' => ['dishtype/index']],
+    		['label' => 'Users', 'url' => ['user/index']],
+    	]];
         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
             'url' => ['/site/logout'],

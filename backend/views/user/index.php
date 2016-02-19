@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\dish\DishSearch */
+/* @var $searchModel backend\models\user\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Dishes';
+$this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="dish-index">
+<div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Dish', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,13 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            #'id',
-            'name',
-            'dish_type_id',
-            'count',
-            'measure_id',
-            'price',
-            //'note:ntext',
+            'id',
+            'username',
+            //'auth_key',
+            //'password_hash',
+            //'password_reset_token',
+             'email:email',
+             'status',
+             'created_at',
+             'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

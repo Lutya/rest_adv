@@ -3,43 +3,47 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\dish_type\DishType;
-use backend\models\dish_type\DishTypeSearch;
+use backend\models\user\User;
+use backend\models\user\UserSearch;
+use backend\models\user\SignupForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
+
 /**
- * DishtypeController implements the CRUD actions for DishType model.
+ * UserController implements the CRUD actions for User model.
  */
-class DishtypeController extends Controller
+class UserController extends Controller
 {
-	public function behaviors()
-	{
-	    return [
+    public function behaviors()
+    {
+        return [
 	        'access' => [
 	            'class' => AccessControl::className(),
-	        	//'only' => ['create', 'update'],
 	            'rules' => [
 	                [
-	                    //'actions' => ['create', 'delete', 'update', 'view'],
 	                    'allow' => true,
-	                	'actions' => ['create', 'update', 'view', 'index', 'delete'],
+	                	'actions' => ['view', 'index',],
 	                    'roles' => ['manager'],
 	                ],
+	            	[
+	            		'allow' => true,
+	            		'actions' => ['create', 'update', 'view', 'index', 'delete'],
+	            		'roles' => ['admin'],
+	            	],
 	            ],
 	        ],
 	    ];
-	}
+    }
 
     /**
-     * Lists all DishType models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DishTypeSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +53,7 @@ class DishtypeController extends Controller
     }
 
     /**
-     * Displays a single DishType model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      */
@@ -61,25 +65,28 @@ class DishtypeController extends Controller
     }
 
     /**
-     * Creates a new DishType model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new DishType();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->redirect(['index']);
+                }
+            }
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing DishType model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +105,7 @@ class DishtypeController extends Controller
     }
 
     /**
-     * Deletes an existing DishType model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -111,15 +118,15 @@ class DishtypeController extends Controller
     }
 
     /**
-     * Finds the DishType model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return DishType the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DishType::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

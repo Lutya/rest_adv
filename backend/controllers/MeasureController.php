@@ -8,23 +8,29 @@ use backend\models\measure\MeasureSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 
 /**
  * MeasureController implements the CRUD actions for Measure model.
  */
 class MeasureController extends Controller
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
+public function behaviors()
+	{
+	    return [
+	        'access' => [
+	            'class' => AccessControl::className(),
+	            'rules' => [
+	                [
+	                    'allow' => true,
+	                	'actions' => ['create', 'update', 'view', 'index', 'delete'],
+	                    'roles' => ['manager'],
+	                ],
+	            ],
+	        ],
+	    ];
+	}
 
     /**
      * Lists all Measure models.
@@ -60,15 +66,21 @@ class MeasureController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Measure();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+    	//if (Yii::$app->user->can('manager')){
+    		$model = new Measure();
+    		
+    		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    			return $this->redirect(['view', 'id' => $model->id]);
+    		} else {
+    			return $this->render('create', [
+    					'model' => $model,
+    			]);
+    		}
+    	//}else {
+    		//throw new ForbiddenHttpException; 
+    	//}
+    		
+        
     }
 
     /**

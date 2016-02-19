@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\models\measure;
+namespace backend\models\user;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\dish_type\DishType;
+use backend\models\user\User;
 
 /**
- * DishTypeSearch represents the model behind the search form about `backend\models\dish_type\DishType`.
+ * UserSearch represents the model behind the search form about `backend\models\user\User`.
  */
-class DishTypeSearch extends DishType
+class UserSearch extends User
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class DishTypeSearch extends DishType
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'full_name'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'email'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class DishTypeSearch extends DishType
      */
     public function search($params)
     {
-        $query = DishType::find();
+        $query = User::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,10 +57,16 @@ class DishTypeSearch extends DishType
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'full_name', $this->full_name]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            //->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            //->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            //->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }

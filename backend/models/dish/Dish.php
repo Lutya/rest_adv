@@ -48,7 +48,7 @@ class Dish extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'DD',
+            'id' => 'ID',
             'name' => 'Name',
             'dish_type_id' => 'Dish Type ID',
             'count' => 'Count',
