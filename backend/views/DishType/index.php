@@ -10,6 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Dish Types';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php $dataProvider ?>
 <div class="dish-type-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -32,5 +33,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
 </div>

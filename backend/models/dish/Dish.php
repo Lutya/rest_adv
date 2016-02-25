@@ -3,6 +3,8 @@
 namespace backend\models\dish;
 
 use Yii;
+use backend\models\dish_type\DishType;
+use backend\models\measure\Measure;
 
 /**
  * This is the model class for table "dish".
@@ -51,8 +53,10 @@ class Dish extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'dish_type_id' => 'Dish Type ID',
+        	'dishType.name' => 'Dish type',
             'count' => 'Count',
             'measure_id' => 'Measure ID',
+        	'measure.name' => 'Measure',
             'price' => 'Price',
             'note' => 'Note',
         ];
@@ -65,7 +69,7 @@ class Dish extends \yii\db\ActiveRecord
     {
         return $this->hasOne(DishType::className(), ['id' => 'dish_type_id']);
     }
-
+    
     /**
      * @return \yii\db\ActiveQuery
      */

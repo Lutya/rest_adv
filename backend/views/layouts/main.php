@@ -28,7 +28,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Restaurant Admin',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -45,6 +45,7 @@ AppAsset::register($this);
     			'label' => 'Dishes',
     			'url' => ['/dish/index'],
     	];
+    	$menuItems[] = [ 'label' => 'Menu','url' => ['meny/index']];
     	$menuItems[] = [ 'label' => 'References', 'items' => [
             ['label' => 'Measures', 'url' => ['measure/index']],
             ['label' => 'Dish type', 'url' => ['dishtype/index']],

@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use backend\models\dish_type\DishType;
+use backend\models\dish\Dish;
+use backend\models\measure\Measure;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\dish\DishSearch */
@@ -27,9 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             #'id',
             'name',
-            'dish_type_id',
+        	'dishType.name',
             'count',
-            'measure_id',
+            'measure.name',
             'price',
             //'note:ntext',
 
