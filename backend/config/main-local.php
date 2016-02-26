@@ -20,6 +20,11 @@ if (!YII_ENV_TEST) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
     ];
+    
+    $config['bootstrap'][] = 'gridview';
+    $config['modules']['gridview'] = [
+    		'class' => '\kartik\grid\Module',
+    ];
 }
 
 return $config;

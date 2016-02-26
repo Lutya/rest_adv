@@ -8,7 +8,6 @@ use backend\models\dish_type\DishTypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
-use arturoliveira\ExcelView;
 
 /**
  * DishtypeController implements the CRUD actions for DishType model.
@@ -108,27 +107,8 @@ class DishtypeController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-    
-    public function actionExport() {
-    	$searchModel = new DishTypeSearch();
-    	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-    	ExcelView::widget([
-    			'dataProvider' => $dataProvider,
-    			'filterModel' => $searchModel,
-    			'fullExportType'=> 'xlsx', //can change to html,xls,csv and so on
-    			'grid_mode' => 'export',
-    			'columns' => [
-    					['class' => 'yii\grid\SerialColumn'],
-    					'id',
-    					'name',
-    					'full_name',
-    			],
-    	]);
-    }
-    
-    
-    
+    }  
+       
     /**
      * Finds the DishType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

@@ -12,6 +12,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use frontend\models\dish_type\DishType;
 
 /**
  * Site controller
@@ -72,7 +73,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+    	$query = DishType::find();
+    	$dish_types = $query->orderBy('name')->all();
+    		 
+    	return $this->render('index', [
+    			'dish_types' => $dish_types,
+    	]);
+    	
+        //return $this->render('index');
     }
 
     /**

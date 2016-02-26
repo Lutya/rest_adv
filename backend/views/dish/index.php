@@ -1,10 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+//use yii\grid\GridView;
 use backend\models\dish_type\DishType;
 use backend\models\dish\Dish;
 use backend\models\measure\Measure;
+use kartik\grid\GridView;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\dish\DishSearch */
@@ -21,6 +23,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Dish', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+<?php
+	$gridColumns = [
+			//'id',
+			'name',
+			'dishType.name',
+			'count',
+			'measure.name',
+			'price',
+			'note',
+	];
+	echo ExportMenu::widget([
+			'dataProvider' => $dataProvider,
+			'columns' => $gridColumns,
+	]);
+?>
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
