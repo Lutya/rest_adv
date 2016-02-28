@@ -14,13 +14,12 @@ $this->title = 'Restaurant';
     </div>
 
     <div class="body-content">
+	<?php var_dump($dish_types); ?>
 
         <div class="row">
             <div class="col-lg-4">
                 <h2>Salats</h2>
-
-                <p>Salats</p>
-				<?php echo (gettype($dish_type)) ?>
+				<?php echo($dish_types[3]['name']); ?>
                 <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
             </div>
             <div class="col-lg-4">

@@ -26,7 +26,7 @@ use backend\models\measure\Measure;
 
     <?= $form->field($model, 'count')->textInput() ?>
 
-    <?= $form->field($model, 'measure_id')->textInput() ?>
+    <?//= $form->field($model, 'measure_id')->textInput() ?>
     
      <?= $form->field($model, 'measure_id')->dropDownList(
     		ArrayHelper::map(Measure::find()->all(), 'id', 'name'),
