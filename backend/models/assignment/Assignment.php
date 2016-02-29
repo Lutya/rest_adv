@@ -3,6 +3,7 @@
 namespace backend\models\assignment;
 
 use Yii;
+use backend\models\user\User;
 
 /**
  * This is the model class for table "auth_assignment".
@@ -42,7 +43,8 @@ class Assignment extends \yii\db\ActiveRecord
     {
         return [
             'item_name' => 'Item Name',
-            'user_id' => 'User ID',
+            //'user_id' => 'User ID',
+        	'user.username' => 'User name',
             'created_at' => 'Created At',
         ];
     }
@@ -53,5 +55,13 @@ class Assignment extends \yii\db\ActiveRecord
     public function getItemName()
     {
         return $this->hasOne(AuthItem::className(), ['name' => 'item_name']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+    	return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

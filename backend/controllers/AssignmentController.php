@@ -8,6 +8,7 @@ use backend\models\assignment\AssignmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * AssignmentController implements the CRUD actions for Assignment model.
@@ -17,13 +18,22 @@ class AssignmentController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
+	        'access' => [
+	            'class' => AccessControl::className(),
+	            'rules' => [
+	                [
+	                    'allow' => true,
+	                	'actions' => ['view', 'index',],
+	                    'roles' => ['manager'],
+	                ],
+	            	[
+	            		'allow' => true,
+	            		'actions' => ['create', 'update', 'view', 'index', 'delete'],
+	            		'roles' => ['admin'],
+	            	],
+	            ],
+	        ],
+	    ];
     }
 
     /**

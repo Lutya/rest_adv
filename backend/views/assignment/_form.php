@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use backend\models\user\User;
+use yii\helpers\ArrayHelper;
+use backend\models\auth_item\AuthItem;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\assignment\Assignment */
@@ -12,9 +15,23 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'item_name')->textInput(['maxlength' => true]) ?>
+    <?//= $form->field($model, 'item_name')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'item_name')->dropDownList(
+    		ArrayHelper::map(AuthItem::find()->all(), 'name', 'name'),
+    		[
+    				'prompt'=>'Select role'
+    		]
+    		) ?>
 
-    <?= $form->field($model, 'user_id')->textInput(['maxlength' => true]) ?>
+    <?//= $form->field($model, 'user_id')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'user_id')->dropDownList(
+    		ArrayHelper::map(User::find()->all(), 'id', 'username'),
+    		[
+    				'prompt'=>'Select user'
+    		]
+    		) ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 
