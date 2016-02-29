@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 $this->title = 'Restaurant';
 ?>
@@ -14,13 +14,13 @@ $this->title = 'Restaurant';
     </div>
 
     <div class="body-content">
-	<?php var_dump($dish_types); ?>
+	<?php// var_dump($dish_types); ?>
 
         <div class="row">
             <div class="col-lg-4">
                 <h2>Salats</h2>
 				<?php echo($dish_types[3]['name']); ?>
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(['dishes/index', 'dish_type_id' => $dish_types[3]['id']]); ?>">Салаты &raquo;</a></p>
             </div>
             <div class="col-lg-4">
                 <h2>Heading</h2>

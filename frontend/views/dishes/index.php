@@ -8,7 +8,7 @@ use yii\helpers\Url;
 <ul>
 	<?php foreach ($dishes as $dish): ?>
 	    <li>
-	        <?= Html::encode("{$dish->name} - {$dish->price} грн. - {$dish->count} {$dish['name']}" )?>
+	        <?= Html::encode("{$dish['name']} - {$dish['price']} грн. - {$dish['count']} {$dish['measure_name']}" )?>
 	    </li>
 	<?php endforeach; ?>
 </ul>

@@ -50,6 +50,7 @@ AppAsset::register($this);
             ['label' => 'Measures', 'url' => ['measure/index']],
             ['label' => 'Dish type', 'url' => ['dishtype/index']],
     		['label' => 'Users', 'url' => ['user/index']],
+    		['label' => 'Assignment', 'url' => ['assignment/index']],
     	]];
         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
