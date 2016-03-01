@@ -19,28 +19,67 @@ $this->title = 'Restaurant';
         <div class="row">
             <div class="col-lg-4">
                 <h2>Salats</h2>
-				<?php echo($dish_types[3]['name']); ?>
-                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(['dishes/index', 'dish_type_id' => $dish_types[3]['id']]); ?>">Салаты &raquo;</a></p>
+				<?php echo($dish_types[0]['name']); ?>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(
+                		['dishes/index', 'dish_type_id' => $dish_types[0]['id']]); ?>">Салаты &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <h2>Zakuski</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                <?php echo($dish_types[1]['name']); ?>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(
+                		['dishes/index', 'dish_type_id' => $dish_types[1]['id']]); ?>">Закуски &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <h2>Первые блюда</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <?php echo($dish_types[2]['name']); ?>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(
+                		['dishes/index', 'dish_type_id' => $dish_types[2]['id']]); ?>">Первое &raquo;</a></p>
+            </div>
+            
+            <div class="col-lg-4">
+                <h2>Основное</h2>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                <?php echo($dish_types[3]['name']); ?>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(
+                		['dishes/index', 'dish_type_id' => $dish_types[3]['id']]); ?>">Основные блюда &raquo;</a></p>
+            </div>
+            
+            <div class="col-lg-4">
+                <h2>Паста</h2>
+
+                <?php echo($dish_types[4]['name']); ?>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(
+                		['dishes/index', 'dish_type_id' => $dish_types[4]['id']]); ?>">Паста &raquo;</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Напитки</h2>
+
+                <?php echo($dish_types[5]['name']); ?>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(
+                		['dishes/index', 'dish_type_id' => $dish_types[5]['id']]); ?>">Напитки &raquo;</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Гарниры</h2>
+
+                <?php echo($dish_types[6]['name']); ?>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(
+                		['dishes/index', 'dish_type_id' => $dish_types[6]['id']]); ?>">Гарниры &raquo;</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Десерты</h2>
+
+                <?php echo($dish_types[7]['name']); ?>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(
+                		['dishes/index', 'dish_type_id' => $dish_types[7]['id']]); ?>">Десерты &raquo;</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Фирмовые блюда</h2>
+
+                <?php echo($dish_types[8]['name']); ?>
+                <p><a class="btn btn-default" href=" <?php echo Url::toRoute(
+                		['dishes/index', 'dish_type_id' => $dish_types[8]['id']]); ?>">Фирмовые блюда &raquo;</a></p>
             </div>
         </div>
 

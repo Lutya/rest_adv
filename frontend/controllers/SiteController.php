@@ -73,9 +73,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-    	$query = DishType::find();
-    	$dish_types = $query->orderBy('name')->all();
-    		 
+    	//$query = DishType::find();
+    	//$dish_types = $query->orderBy('name')->all();
+    	$dish_types = (new \yii\db\Query())
+    	->select(['id', 'name'])
+    	->from('dish_type')
+    	->all();
+    	
     	return $this->render('index', [
     			'dish_types' => $dish_types,
     	]);
