@@ -12,6 +12,12 @@ use backend\models\dish\Dish;
  */
 class DishSearch extends Dish
 {
+	public function attributes()
+	{
+		// add related fields to searchable attributes
+		return array_merge(parent::attributes(), ['measure.name', 'dishType.name']);
+	}
+	
     /**
      * @inheritdoc
      */
@@ -19,7 +25,7 @@ class DishSearch extends Dish
     {
         return [
             [['id', 'dish_type_id', 'measure_id'], 'integer'],
-            [['name', 'note'], 'safe'],
+            [['name', 'note', 'measure.name', 'dishType.name'], 'safe'],
             [['count', 'price'], 'number'],
         ];
     }
@@ -55,7 +61,8 @@ class DishSearch extends Dish
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        $query->joinWith(['measure' => function($query) { $query->from(['measure']); }]);
+        $query->joinWith(['dishType' => function($query) { $query->from(['dish_type']); }]);
         $query->andFilterWhere([
             'id' => $this->id,
             'dish_type_id' => $this->dish_type_id,
@@ -65,7 +72,9 @@ class DishSearch extends Dish
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'note', $this->note]);
+            ->andFilterWhere(['like', 'note', $this->note])
+        	->andFilterWhere(['like', 'measure.name', $this->getAttribute('measure.name')])
+        	->andFilterWhere(['like', 'dish_type.name', $this->getAttribute('dishType.name')]);
 
         return $dataProvider;
     }

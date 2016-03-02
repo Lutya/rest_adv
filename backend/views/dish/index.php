@@ -53,7 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'count',
             'measure.name',
             'price',
-            //'note:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
