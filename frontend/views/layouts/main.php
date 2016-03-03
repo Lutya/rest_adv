@@ -21,15 +21,21 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <?php $session = Yii::$app->session; ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
     <?php
+    $session->setFlash('postDeleted', 'Вы успешно удалили пост.');
+    
+    // Запрос #2
+    // отображение flash-сообщения "postDeleted"
+    echo $session->getFlash('postDeleted');
     NavBar::begin([
         'brandLabel' => 'Restaurant',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => Yii::$app->homeUrl, 
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],

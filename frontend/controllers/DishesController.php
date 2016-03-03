@@ -6,6 +6,7 @@ use Yii;
 use backend\models\dish\Dish;
 use backend\models\dish\DishSearch;
 use yii\data\ActiveDataProvider;
+use frontend\models\CountForm;
 
 class DishesController extends \yii\web\Controller
 {
@@ -33,10 +34,14 @@ class DishesController extends \yii\web\Controller
 		    	->where(['dish_type_id' => $dish_type_id])
 		    	->all();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		
+		$model = new CountForm();
+		
         return $this->render('index', [
         		'dishes' => $dishes,
         		'dataProvider' => $dataProvider,
         		'searchModel' => $searchModel,
+        		'model' => $model,
         ]);
     }
 }
