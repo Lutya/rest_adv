@@ -94,14 +94,23 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+    	$session = Yii::$app->session;
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        	$session->open();
+        	$user = (new \yii\db\Query())// $query //
+        	->from('user')
+        	->where(['username' => Yii::$app->user->identity->username])
+        	->one();
+        	$session['user_id']= $user['id'];
+        	
             return $this->goBack();
         } else {
+        	$session->close();
             return $this->render('login', [
                 'model' => $model,
             ]);

@@ -42,7 +42,7 @@ use yii\widgets\ActiveForm;
 		        'attribute' => ' Basket ',
 		        'value' => function ($data) {
 		            return Html::a(Html::encode(Добавить), Url::toRoute(['basket/create', 'dish_id'=>$data->id,
-		            																      'count' => 1,//нужно сделать форму для ввода количества
+		            																      'count' => 1,
 		            																	  ]));
 		            
 		        },

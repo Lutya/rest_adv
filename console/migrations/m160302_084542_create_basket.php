@@ -8,7 +8,7 @@ class m160302_084542_create_basket extends Migration
     public function up()
     {
     	$this->createTable('basket', [
-    			'id' => Schema::TYPE_PK,
+    			'id' => Schema::TYPE_STRING . '(15) NOT NULL',
     			'dish_id' => Schema::TYPE_INTEGER,
     			'count' => Schema::TYPE_INTEGER . ' NOT NULL',
     			'date' => Schema::TYPE_DATE . ' NOT NULL',

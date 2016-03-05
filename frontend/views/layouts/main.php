@@ -1,4 +1,22 @@
 <?php
+$cookies_req = Yii::$app->request->cookies;
+$cookies_resp = Yii::$app->response->cookies;
+$id_bask =  $cookies_req->get('id_bask');
+if (!isset($id_bask)){
+	$uniq_id = uniqid('ID');
+	$cookies_resp->add(new \yii\web\Cookie([
+			'name' => 'id_bask',
+			'value' => $uniq_id,
+			'expire' => time()+60*60*24*24,
+	]));
+	 
+}
+else
+	$cookies_resp->add(new \yii\web\Cookie([
+			'name' => 'id_bask',
+			'value' => $id_bask,
+			'expire' => time()+60*60*24*24,
+	]));
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -21,18 +39,12 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <?php $session = Yii::$app->session; ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    $session->setFlash('postDeleted', 'Вы успешно удалили пост.');
-    
-    // Запрос #2
-    // отображение flash-сообщения "postDeleted"
-    echo $session->getFlash('postDeleted');
+    <?php 	
     NavBar::begin([
         'brandLabel' => 'Restaurant',
         'brandUrl' => Yii::$app->homeUrl, 
@@ -42,9 +54,10 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        //['label' => 'About', 'url' => ['/site/about']],
+        //['label' => $cookies_req->get('id_bask'), 'url' => ['/site/about']],
         //['label' => 'Contact', 'url' => ['/site/contact']],
     ];
+    //$cookies_resp->remove('id_bask');
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
