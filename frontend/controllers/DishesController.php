@@ -12,6 +12,7 @@ class DishesController extends \yii\web\Controller
 {
     public function actionIndex($dish_type_id)
     {
+    	$session = Yii::$app->session;
     	$searchModel = new DishSearch(
     			['dish_type_id' => $dish_type_id,]);
     	$query = Dish::find()->where(['dish_type_id' => $dish_type_id]);
@@ -25,23 +26,11 @@ class DishesController extends \yii\web\Controller
     			'asc' => ['measure.name' => SORT_ASC],
     			'desc' => ['measure.name' => SORT_DESC],
     	];  	
-    	
-    	//$query = Dish::find();
-    	$dishes = (new \yii\db\Query())// $query //
-		    	->select(['dish.id', 'dish.name', 'price', 'count', 'measure_name' => 'measure.name'])
-		    	->from('dish')
-		    	->leftJoin('measure', 'measure.id = dish.measure_id')
-		    	->where(['dish_type_id' => $dish_type_id])
-		    	->all();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		
-		$model = new CountForm();
-		
+		echo $session->getFlash('updatebasket');
         return $this->render('index', [
-        		'dishes' => $dishes,
         		'dataProvider' => $dataProvider,
         		'searchModel' => $searchModel,
-        		'model' => $model,
         ]);
     }
 }

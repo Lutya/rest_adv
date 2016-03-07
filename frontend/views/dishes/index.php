@@ -5,16 +5,8 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 ?>
-<?php// var_dump ($dishes); ?>
-
-<ul>
-	<?php foreach ($dishes as $dish): ?>
-	    <li>
-	        <?= Html::encode("{$dish['name']} - {$dish['price']} грн. - {$dish['count']} {$dish['measure_name']}" )?>
-	    </li>
-	<?php endforeach; ?>
-</ul>
-
+<?php $session = Yii::$app->session;
+echo $session->getFlash('updatebasket');?>
 <div class="dish-index">
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,43 +17,16 @@ use yii\widgets\ActiveForm;
             'id',
             'name',
         	'note:ntext',
-            //'dishType.name',
             'count',
             'measure.name',
-            'price',
-        		[
-        		'attribute' => 'View',
-        		'value' => function ($data) { //Url::toRoute(['/date-time/fast-forward', 'id' => 105]);
-        		return (Html::input('text', $data->id, '', ['class' => 'input-count']));
-        			
-        		},
-        		'format' => 'raw',
-        		],
-        		
+            'price',  		
         	[
 		        'attribute' => ' Basket ',
 		        'value' => function ($data) {
-		            return Html::a(Html::encode(Добавить), Url::toRoute(['basket/create', 'dish_id'=>$data->id,
-		            																      'count' => 1,
-		            																	  ]));
-		            
+		            return Html::a(Html::encode(Добавить), Url::toRoute(['basket/create', 'dish_id'=> $data->id,]));   
 		        },
 		        'format' => 'raw',
 		    ],
         ],
     ]); ?>
-    
-    
-    <?php $form = ActiveForm::begin([
-    'id' => 'count-form',
-    'options' => ['class' => 'form-horizontal'],
-]) ?>
-    <?= $form->field($model, 'count') ?>
-
-    <div class="form-group">
-        <div class="col-lg-offset-1 col-lg-11">
-            <?= Html::submitButton('В корзину', ['class' => 'btn btn-primary']) ?>
-        </div>
-    </div>
-<?php ActiveForm::end() ?>
 </div>

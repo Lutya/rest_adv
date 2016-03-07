@@ -124,7 +124,10 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
+    	$session = Yii::$app->session;
         Yii::$app->user->logout();
+        $session->remove('user_id');
+        $session->destroy();
 
         return $this->goHome();
     }
@@ -173,6 +176,13 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
+                	$session = Yii::$app->session;
+                	$session->open();
+                	$user = (new \yii\db\Query())
+	                	->from('user')
+	                	->where(['username' => Yii::$app->user->identity->username])
+	                	->one();
+                	$session['user_id']= $user['id'];
                     return $this->goHome();
                 }
             }

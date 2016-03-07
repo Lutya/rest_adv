@@ -45,6 +45,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php 	
+    $session = Yii::$app->session;
     NavBar::begin([
         'brandLabel' => 'Restaurant',
         'brandUrl' => Yii::$app->homeUrl, 
@@ -54,7 +55,9 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        //['label' => $cookies_req->get('id_bask'), 'url' => ['/site/about']],
+        ['label' => $cookies_req->get('id_bask'), 'url' => ['/site/about']],
+    	//['label' => $session['user_id'], 'url' => ['/site/about']],
+    		
         //['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     //$cookies_resp->remove('id_bask');
@@ -68,6 +71,7 @@ AppAsset::register($this);
             'linkOptions' => ['data-method' => 'post']
         ];
     }
+    $menuItems[] = ['label' => 'Basket', 'url' => ['/basket/index']];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,

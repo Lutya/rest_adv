@@ -3,6 +3,7 @@
 namespace frontend\models\basket;
 
 use Yii;
+use backend\models\dish\Dish;
 
 /**
  * This is the model class for table "basket".
@@ -44,6 +45,7 @@ class Basket extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'dish_id' => 'Dish ID',
+        	'dish.name' => 'Dish name',
             'count' => 'Count',
             'date' => 'Date',
         ];
