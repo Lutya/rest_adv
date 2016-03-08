@@ -10,12 +10,15 @@ echo $session->getFlash('editbasket');?>
 <div class="dish-index">
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
+		'summary'=>'',
+		'showFooter'=>true,
         'columns' => [
         	['class' => 'yii\grid\SerialColumn'],
-        		'id_basket',
-        		'id',
+        	'id_basket',
+        	'id',
         	'dish.name',
         	'dish.price',
+        	'count',
         	['attribute' => 'Minus',
         		'value' => function ($data) {
         			return Html::a('[-]', Url::toRoute(['basket/edit', 'type' => 'minus', 'id_basket'=>$data->id_basket]));
@@ -34,9 +37,14 @@ echo $session->getFlash('editbasket');?>
         					},
         			'format' => 'raw',
         	],
+        	['attribute' => 'Sum',
+        		'value' => function ($data) {
+        			return $data['count'];// * $data['dish.price']; 
+        		},
+        	'format' => 'raw',
+        	],
         	['class' => 'yii\grid\ActionColumn',
         		'template' => '{delete}',
         	],
         ],
-        'showFooter' => true,
     ]); ?>
