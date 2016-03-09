@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m160301_122137_create_table_order_status extends Migration
+class m160301_112137_create_table_order_status extends Migration
 {
     public function up()
     {

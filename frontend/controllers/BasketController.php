@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use frontend\models\basket\Basket;
+use backend\models\dish\Dish;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\GroupUrlRule;
@@ -14,6 +15,10 @@ class BasketController extends \yii\web\Controller
     {
     	$cookies =  Yii::$app->request->cookies;
     	$session = Yii::$app->session;
+    	$price_dish = Dish::findone($dish_id);
+    		/*->select('price')
+    		->where(['id' => $dish_id])
+    		->one();*/
     	$query = Basket::find()
     			->where(['id' => $cookies->get('id_bask'),
     					'dish_id' => $dish_id,])
@@ -30,6 +35,7 @@ class BasketController extends \yii\web\Controller
     		$basket->dish_id = $dish_id;
     		$basket->count = 1;
     		$basket->date = date('Y-m-j');
+    		$basket->price = $price_dish['price'];
     		$basket->save();
     	}
     	$session->setFlash('updatebasket', 'Добавлено в корзину');
@@ -77,6 +83,7 @@ class BasketController extends \yii\web\Controller
 
     public function actionIndex()
     {
+    	$session = Yii::$app->session;
     	$cookies =  Yii::$app->request->cookies;
     	$id_bask = $cookies->get('id_bask');
     	$query = Basket::find()
@@ -84,8 +91,17 @@ class BasketController extends \yii\web\Controller
     	$dataProvider = new ActiveDataProvider([
     			'query' => $query,
     	]);
+    	
+    	
+    	$basket = Basket::findAll(['id' => $id_bask]);
+    	$total_sum = 0;
+    	foreach ($basket as $bas) {
+    		$total_sum = $total_sum + $bas->count * $bas->price;
+    	}
+    	$session['totalsum'] = $total_sum;
         return $this->render('index', [
         		'dataProvider' => $dataProvider,
+        		'total_sum' => $total_sum,
         		]);
     }
 

@@ -1,28 +1,28 @@
 <?php
 
-namespace frontend\models\basket;
+namespace frontend\models\order_consist;
 
 use Yii;
-use backend\models\dish\Dish;
 
 /**
- * This is the model class for table "basket".
+ * This is the model class for table "order_consist".
  *
  * @property integer $id
+ * @property string $order_id
  * @property integer $dish_id
  * @property integer $count
- * @property string $date
  *
  * @property Dish $dish
+ * @property Orders $order
  */
-class Basket extends \yii\db\ActiveRecord
+class OrderConsist extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'basket';
+        return 'order_consist';
     }
 
     /**
@@ -32,9 +32,8 @@ class Basket extends \yii\db\ActiveRecord
     {
         return [
             [['dish_id', 'count'], 'integer'],
-            [['count', 'date'], 'required'],
-            [['date'], 'safe'],
-        	[['price'], 'number'],	
+            [['count'], 'required'],
+            [['order_id'], 'string', 'max' => 255]
         ];
     }
 
@@ -45,26 +44,11 @@ class Basket extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'order_id' => 'Order ID',
             'dish_id' => 'Dish ID',
-        	'dish.name' => 'Dish name',
             'count' => 'Count',
-            'date' => 'Date',
-        	'price' => 'Price',
         ];
     }
-    
-    public function fields()
-    {
-    	return [
-    			'id',
-    			'dish_id',
-    			'dish.name',
-    			'count',
-    			'date',
-    			'price' => 'dish.price',
-    	];
-    }
-    
 
     /**
      * @return \yii\db\ActiveQuery
@@ -73,5 +57,12 @@ class Basket extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Dish::className(), ['id' => 'dish_id']);
     }
-    
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrder()
+    {
+        return $this->hasOne(Orders::className(), ['id' => 'order_id']);
+    }
 }

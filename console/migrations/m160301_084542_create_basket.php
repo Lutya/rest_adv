@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m160302_084542_create_basket extends Migration
+class m160301_084542_create_basket extends Migration
 {
     public function up()
     {
@@ -13,6 +13,7 @@ class m160302_084542_create_basket extends Migration
     			'dish_id' => Schema::TYPE_INTEGER,
     			'count' => Schema::TYPE_INTEGER . ' NOT NULL',
     			'date' => Schema::TYPE_DATE . ' NOT NULL',
+    			'price' => Schema::TYPE_DECIMAL . '(5,2)',
     	]);
     	
     	/*$this->addPrimaryKey(

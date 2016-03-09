@@ -71,7 +71,7 @@ AppAsset::register($this);
             'linkOptions' => ['data-method' => 'post']
         ];
     }
-    $menuItems[] = ['label' => 'Basket', 'url' => ['/basket/index']];
+    $menuItems[] = ['label' => 'Basket'.' ('.$session['totalsum'].' грн.)', 'url' => ['/basket/index']];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,

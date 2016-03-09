@@ -10,14 +10,12 @@ echo $session->getFlash('editbasket');?>
 <div class="dish-index">
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
-		'summary'=>'',
-		'showFooter'=>true,
         'columns' => [
         	['class' => 'yii\grid\SerialColumn'],
-        	'id_basket',
-        	'id',
+        	//'id_basket',
+        	//'id',
         	'dish.name',
-        	'dish.price',
+        	'price',
         	'count',
         	['attribute' => 'Minus',
         		'value' => function ($data) {
@@ -35,16 +33,25 @@ echo $session->getFlash('editbasket');?>
         		'value' => function ($data) {
         			return Html::a('[+]', Url::toRoute(['basket/edit', 'type' => 'plus', 'id_basket'=>$data->id_basket]));
         					},
-        			'format' => 'raw',
+        		'footer' => 'Всего:',
+        		'format' => 'raw',
         	],
-        	['attribute' => 'Sum',
+        	['attribute' => 'Summ',
         		'value' => function ($data) {
-        			return $data['count'];// * $data['dish.price']; 
+        			return $data->price * $data->count;// * $data['dish.price']; 
+
         		},
+        	'footer' => $total_sum,
         	'format' => 'raw',
         	],
         	['class' => 'yii\grid\ActionColumn',
         		'template' => '{delete}',
         	],
         ],
-    ]); ?>
+        
+        //'showPageSummary' => true,
+        'showFooter' => true,
+    ]); 
+        		
+   echo Html::a('Оформить заказ', Url::toRoute(['order/index']));
+?>
