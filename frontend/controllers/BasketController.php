@@ -15,7 +15,7 @@ class BasketController extends \yii\web\Controller
     {
     	$cookies =  Yii::$app->request->cookies;
     	$session = Yii::$app->session;
-    	$price_dish = Dish::findone($dish_id);
+    	$price_dish = Dish::findOne($dish_id);
     		/*->select('price')
     		->where(['id' => $dish_id])
     		->one();*/
@@ -39,6 +39,7 @@ class BasketController extends \yii\web\Controller
     		$basket->save();
     	}
     	$session->setFlash('updatebasket', 'Добавлено в корзину');
+    	$session['totalsum'] = $session['totalsum'] + $price_dish['price'];
     	return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -60,8 +61,8 @@ class BasketController extends \yii\web\Controller
     public function actionEdit($type, $id_basket)
     {
     	$session = Yii::$app->session;
+    	$basket = Basket::findOne($id_basket);
     	if($type == 'minus'){
-    		$basket = Basket::findOne($id_basket);
     		if ($basket->count == 1) {
     			$this->findModel($id_basket)->delete();
     			$session->setFlash('editbasket', 'Удалено');
@@ -72,7 +73,6 @@ class BasketController extends \yii\web\Controller
     		}	
     	}	
     	elseif($type == 'plus'){
-    		$basket = Basket::findOne($id_basket);
     		$basket->updateCounters(['count' => 1]);
     		$session->setFlash('editbasket', 'Добавлено');
     	}

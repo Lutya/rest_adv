@@ -106,7 +106,7 @@ class SiteController extends Controller
         	->from('user')
         	->where(['username' => Yii::$app->user->identity->username])
         	->one();
-        	$session['user_id']= $user['id'];
+        	$session['user_id'] = $user['id'];
         	
             return $this->goBack();
         } else {

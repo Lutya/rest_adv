@@ -16,19 +16,14 @@ echo $session->getFlash('editbasket');?>
         	//'id',
         	'dish.name',
         	'price',
-        	'count',
+        	
         	['attribute' => 'Minus',
         		'value' => function ($data) {
         			return Html::a('[-]', Url::toRoute(['basket/edit', 'type' => 'minus', 'id_basket'=>$data->id_basket]));
         					},
         			'format' => 'raw',
         	],
-        	['attribute' => 'Count',
-        		'value' => function ($data) {
-        			return $data->count; 
-        		},
-        		'format' => 'raw',
-        	],
+        	'count',
         	['attribute' => 'Plus',
         		'value' => function ($data) {
         			return Html::a('[+]', Url::toRoute(['basket/edit', 'type' => 'plus', 'id_basket'=>$data->id_basket]));
