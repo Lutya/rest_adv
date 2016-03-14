@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'count',
             'measure.name',
             'price',
+        	'photo',
             'note:ntext',
         ],
     ]) ?>

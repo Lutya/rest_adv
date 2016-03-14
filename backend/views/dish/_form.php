@@ -13,7 +13,7 @@ use backend\models\measure\Measure;
 
 <div class="dish-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     
@@ -36,6 +36,8 @@ use backend\models\measure\Measure;
     		) ?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'file')->fileInput() ?>
 
     <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 

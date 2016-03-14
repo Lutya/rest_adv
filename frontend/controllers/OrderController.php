@@ -60,6 +60,18 @@ class OrderController extends \yii\web\Controller
     				$ord_cons->dish_id = $bas->dish_id;
     				$ord_cons->count = $bas->count;
     				$ord_cons->save();
+    				
+    			//удаляем корзину
+    			Basket::deleteAll(['id' => $id_bask]);
+    			
+    			//создаем новый ИД корзины
+    			$cookies_resp = Yii::$app->response->cookies;
+    			$uniq_id = uniqid('ID');
+    			$cookies_resp->add(new \yii\web\Cookie([
+    					'name' => 'id_bask',
+    					'value' => $uniq_id,
+    					'expire' => time()+60*60*24*24,
+    			]));
     			}				
     		}
     	

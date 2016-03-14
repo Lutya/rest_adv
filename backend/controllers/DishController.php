@@ -8,6 +8,8 @@ use backend\models\dish\DishSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
+use yii\helpers\Html;
 
 /**
  * DishController implements the CRUD actions for Dish model.
@@ -69,6 +71,16 @@ class DishController extends Controller
         $model = new Dish();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        	
+        	//$photo_name = $model->name;
+        	
+        	$model->file=UploadedFile::getInstance($model, 'file');
+        	$model->file->saveAs('uploads/'. $model->file->baseName .'.'.$model->file->extension);
+        	
+        	$model->photo = 'uploads/'. $model->file->baseName .'.'.$model->file->extension;
+        	
+        	$model->save();
+        	
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -88,6 +100,12 @@ class DishController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        	$model->file=UploadedFile::getInstance($model, 'file');
+        	$model->file->saveAs('uploads/'. $model->file->baseName .'.'.$model->file->extension);
+        	 
+        	$model->photo = 'uploads/'. $model->file->baseName .'.'.$model->file->extension;
+        	 
+        	$model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

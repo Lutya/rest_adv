@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
+
 ?>
 <?php $session = Yii::$app->session;
 echo $session->getFlash('updatebasket');?>
@@ -14,7 +15,17 @@ echo $session->getFlash('updatebasket');?>
         'columns' => [
         	['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
+        	[
+        		'label' => 'Photo',
+        		'format' => 'raw',
+        		'value' => function($data){
+        		return Html::img(Yii::getAlias('@imageurl').'/'.$data->photo,[
+        				'alt'=>$data->name,
+        				'style' => 'width:150px; height:150px; '
+        				]);
+        		},
+        	],
             'name',
         	'note:ntext',
             'count',

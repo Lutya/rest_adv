@@ -55,7 +55,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => $cookies_req->get('id_bask'), 'url' => ['/site/about']],
+        //['label' => $cookies_req->get('id_bask'), 'url' => ['/site/about']],
     	//['label' => $session['user_id'], 'url' => ['/site/about']],
     		
         //['label' => 'Contact', 'url' => ['/site/contact']],

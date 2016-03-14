@@ -5,6 +5,7 @@ namespace backend\models\dish;
 use Yii;
 use backend\models\dish_type\DishType;
 use backend\models\measure\Measure;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "dish".
@@ -25,6 +26,8 @@ class Dish extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+	public $file;
+	
     public static function tableName()
     {
         return 'dish';
@@ -40,6 +43,7 @@ class Dish extends \yii\db\ActiveRecord
             [['dish_type_id', 'measure_id'], 'integer'],
             [['count', 'price'], 'number'],
             [['note'], 'string'],
+        	[['file'], 'file'],
             [['name'], 'string', 'max' => 255]
         ];
     }
@@ -59,6 +63,7 @@ class Dish extends \yii\db\ActiveRecord
         	'measure.name' => 'Measure',
             'price' => 'Price',
             'note' => 'Note',
+        	'file' => 'Add photo',
         ];
     }
 
