@@ -3,7 +3,9 @@
 namespace frontend\models\orders;
 
 use Yii;
-
+use backend\models\user\User;
+use frontend\models\order_status\OrderStatus;
+use frontend\models\order_consist\OrderConsist;
 /**
  * This is the model class for table "orders".
  *
@@ -36,7 +38,7 @@ class Orders extends \yii\db\ActiveRecord
         return [
             [['id'], 'required'],
             [['user_id', 'order_status_id', 'delivery'], 'integer'],
-            [['date'], 'safe'],
+            [['date', 'number'], 'safe'],
             [['id'], 'string', 'max' => 15],
             [['number'], 'string', 'max' => 255]
         ];
@@ -51,6 +53,7 @@ class Orders extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'order_status_id' => 'Order Status ID',
+        	//'orderStatus.name' => 'Name order status',
             'date' => 'Date',
             'number' => 'Number',
             'delivery' => 'Delivery',
@@ -79,5 +82,5 @@ class Orders extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
+    } 
 }

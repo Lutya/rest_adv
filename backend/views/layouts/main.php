@@ -41,10 +41,8 @@ AppAsset::register($this);
     	$menuItems[] = ['label' => 'guest'];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-    	$menuItems[] = [
-    			'label' => 'Dishes',
-    			'url' => ['/dish/index'],
-    	];
+    	$menuItems[] = ['label' => 'Orders','url' => ['/orders/index']];
+    	$menuItems[] = ['label' => 'Dishes','url' => ['/dish/index']];
     	$menuItems[] = [ 'label' => 'Menu','url' => ['meny/index']];
     	$menuItems[] = [ 'label' => 'References', 'items' => [
             ['label' => 'Measures', 'url' => ['measure/index']],
