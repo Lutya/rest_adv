@@ -12,14 +12,10 @@ use frontend\models\orders\Orders;
  */
 class OrdersSearch extends Orders
 {
-	public $statusName;
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
-            [['id', 'date', 'user_id', 'number', 'order_status_id', 'statusName'], 'safe'],
+            [['id', 'date', 'user_id', 'number', 'order_status_id'], 'safe'],
             [['delivery'], 'integer'],
         ];
     }
@@ -66,7 +62,7 @@ class OrdersSearch extends Orders
         $query->andFilterWhere([
             //'user_id' => $this->user_id,
         	//'orderStatus.name' =>  $this->order_status_id,
-            //'order_status_id' => $this->order_status_id,
+            //'order_status_id' => 1,
             'date' => $this->date,
             'delivery' => $this->delivery,
         ]);
@@ -78,5 +74,46 @@ class OrdersSearch extends Orders
         	->andFilterWhere(['like', 'user.username', $this->user_id]);
 
         return $dataProvider;
+    }
+    
+    
+    public function searchstatus($params, $status_id)
+    {
+    	$query = Orders::find()
+    	//->where(['date'=>date('Y-m-j')])
+    	->orderBy([
+    			'date'=> SORT_DESC,
+    			'order_status_id'=>SORT_ASC]);
+    
+    	$dataProvider = new ActiveDataProvider([
+    			'query' => $query,
+    	]);
+    
+    	$this->load($params);
+    
+    	if (!$this->validate()) {
+    		// uncomment the following line if you do not want to return any records when validation fails
+    		// $query->where('0=1');
+    		return $dataProvider;
+    	}
+    
+    	$query->joinWith('orderStatus');
+    	$query->joinWith('user');
+    
+    	$query->andFilterWhere([
+    			//'user_id' => $this->user_id,
+    			//'orderStatus.name' =>  $this->order_status_id,
+    			'order_status_id' => $status_id,
+    			'date' => $this->date,
+    			'delivery' => $this->delivery,
+    	]);
+    
+    	$query->andFilterWhere(['like', 'id', $this->id])
+    	->andFilterWhere(['like', 'number', $this->number])
+    	->andFilterWhere(['like', 'orderStatus', $this->orderStatus])
+    	->andFilterWhere(['like', 'order_status.name', $this->order_status_id])
+    	->andFilterWhere(['like', 'user.username', $this->user_id]);
+    
+    	return $dataProvider;
     }
 }

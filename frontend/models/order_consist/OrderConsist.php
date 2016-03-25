@@ -5,6 +5,7 @@ namespace frontend\models\order_consist;
 use Yii;
 use backend\models\user\User;
 use backend\models\dish\Dish;
+use frontend\models\orders\Orders;
 
 /**
  * This is the model class for table "order_consist".

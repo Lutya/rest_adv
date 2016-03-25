@@ -17,7 +17,8 @@ use frontend\models\order_status\OrderStatus;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'id')->textInput(['maxlength' => true,
-    		'value'=>uniqid('OR')
+    		'value'=> $order_id,
+    		'readonly' => true,
     ]) ?>
 
     <?= $form->field($model, 'user_id')->dropDownList(
@@ -30,14 +31,14 @@ use frontend\models\order_status\OrderStatus;
     <?= $form->field($model, 'order_status_id')->dropDownList(
     		ArrayHelper::map(OrderStatus::find()->all(), 'id', 'name'),
     		[
-    				'prompt'=>'Select status'
+    				'prompt'=>'Select status',
     		]
     		) ?>
 
     <?= $form->field($model, 'date')->widget(DatePicker::className(), [
 				    'pluginOptions' => [
 				        'format' => 'yyyy-mm-dd',
-				        'todayHighlight' => true
+				        'todayHighlight' => true,
 				    ]
 				]); ?>
 

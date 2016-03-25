@@ -19,7 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Orders', ['create', 'order_id' => uniqid('OR')], ['class' => 'btn btn-success']);?> <br><br>
+        <?= Html::a(Html::encode('Открытые'), ['orders/statusfilter', 'status_id'=> 1], ['class' => 'btn btn-primary']);?>
+ 		<?= Html::a(Html::encode('Закрытые'), ['orders/statusfilter', 'status_id'=> 3], ['class' => 'btn btn-primary']);?>
+		<?= Html::a(Html::encode('В обработке'), ['orders/statusfilter', 'status_id'=> 2], ['class' => 'btn btn-primary']);?>
+		<?= Html::a(Html::encode('Все'), ['orders/index'], ['class' => 'btn btn-primary']);?>
+		<?= Html::a(Html::encode('Отчет'), ['orderconsist/index'], ['class' => 'btn btn-danger']);?>
     </p>
 
     <?= GridView::widget([
@@ -61,7 +66,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'number',
             // 'delivery',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            	'template' => '{view}{delete}',
+    ],
         ],
     ]); ?>
 

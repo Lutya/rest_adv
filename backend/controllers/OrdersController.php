@@ -6,6 +6,7 @@ use Yii;
 use frontend\models\orders\Orders;
 use frontend\models\orders\OrdersSearch;
 use frontend\models\order_consist\OrderConsist;
+use backend\models\dish\Dish;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -57,10 +58,17 @@ class OrdersController extends Controller
     				'query' => $query,
     		]);
     	
+    	$consist = OrderConsist::findAll(['order_id' => $id]);
+    	$total_sum = 0;
+    	foreach ($consist as $cons) {
+    		$total_sum = $total_sum + $cons->count * $cons->dish->price;
+    	}
+    	
     	
         return $this->render('view', [
             'model' => $this->findModel($id),
         	'dataProvider' => $dataProvider,
+        	'total_sum' => $total_sum,
         ]);
         
         
@@ -72,15 +80,19 @@ class OrdersController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($order_id)
     {
         $model = new Orders();
-
+        //$order_id = uniqid('OR');
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['orderconsist/create',
+            		'order_id' => $order_id,
+            ]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+            	'order_id' => $order_id,
             ]);
         }
     }
@@ -93,6 +105,8 @@ class OrdersController extends Controller
      */
     public function actionUpdate($type, $id_order, $id_dish)
     {
+    	//$model = $this->findModel($id);
+    	
         $session = Yii::$app->session;
     	$order_consist = OrderConsist::findOne(['order_id'=>$id_order,
     									  		'dish_id'=>$id_dish
@@ -143,6 +157,42 @@ class OrdersController extends Controller
     
     	return $this->redirect(Yii::$app->request->referrer);
     }
+    
+    public function actionAlterstatus($order_id, $status)
+    {
+    	$order = Orders::findOne($order_id);
+    	if ($status == 'open') 
+    		$order->order_status_id = 1;
+    	elseif ($status == 'work')  
+    		$order->order_status_id = 2;
+    	else 
+    		$order->order_status_id = 3;
+    	$order->save();
+    	return $this->redirect(Yii::$app->request->referrer);
+    }  
+    
+    
+    public function actionStatusfilter($status_id)
+    {
+    	/*$query = Orders::find()
+    		->where(['order_status_id' => 1]);*/
+    	
+    	$searchModel = new OrdersSearch();
+    	/*$dataProvider =  ([
+    			'query' => $query,
+    	]);*/
+    	
+    	//$searchModel->order_status_id = '1';
+    	
+        $dataProvider = $searchModel->searchstatus(Yii::$app->request->queryParams, $status_id);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    	//return $this->redirect(Yii::$app->request->referrer);
+    }
+ 
 
     /**
      * Finds the Orders model based on its primary key value.
