@@ -10,6 +10,7 @@ use frontend\models\order_consist\OrderConsistSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * OrderconsistController implements the CRUD actions for OrderConsist model.
@@ -19,13 +20,19 @@ class OrderconsistController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
+	        'access' => [
+	            'class' => AccessControl::className(),
+	        	//'only' => ['create', 'update'],
+	            'rules' => [
+	                [
+	                    //'actions' => ['create', 'delete', 'update', 'view'],
+	                    'allow' => true,
+	                	'actions' => ['create', 'close', 'index'],
+	                    'roles' => ['manager'],
+	                ],
+	            ],
+	        ],
+	    ];
     }
 
     /**

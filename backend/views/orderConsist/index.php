@@ -6,6 +6,7 @@ use kartik\grid\GridView;
 use frontend\models\order_consist\OrderConsist;
 use frontend\models\order_consist\OrderConsistSearch;
 use kartik\date\DatePicker;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\order_consist\OrderConsistSearch */
@@ -18,7 +19,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    
+    <?php
+	$gridColumns = [
+			'id',
+        	'user.username',
+        	'orderStatus.name',
+			'number',
+	];
+	echo ExportMenu::widget([
+			'dataProvider' => $dataProvider,
+			'columns' => $gridColumns,
+	]);
+	?>
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -40,10 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
     					
     				}
     		],
-        	/*[
-        		'attribute'=>'order_id',
-        		'value'=>'order.date',
-        	],*/
         	'id',
         	'user.username',
         	'orderStatus.name',
@@ -55,7 +65,6 @@ $this->params['breadcrumbs'][] = $this->title;
         		'filter'=>DatePicker::widget([
         			'model'=>$searchModel,
         			'attribute'=>'date',
-				    //'name' => 'check_issue_date', 
 				    'value' => date('Y-m-d'),
 				    'options' => ['placeholder' => 'Select date'],
 				    'pluginOptions' => [
@@ -64,11 +73,19 @@ $this->params['breadcrumbs'][] = $this->title;
 				    ]
 				]),
         	],
-        	/*'order.user.username',
-        	'order.orderStatus.name',
-            'dish.name',
-        	'dish.price',*/
             'number',
+            [
+            	'attribute' => 'Total',
+            	'value' => function ($data) {
+           			$consist = OrderConsist::findAll(['order_id' => $data->id]);
+            		$total_sum = 0;
+            		foreach ($consist as $cons) {
+            			$total_sum = $total_sum + $cons->count * $cons->dish->price;
+            		}
+            		return $total_sum;
+            		}
+            ],
+           
         ],
     ]); ?>
 
