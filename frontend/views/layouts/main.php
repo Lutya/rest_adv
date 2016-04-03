@@ -1,4 +1,14 @@
 <?php
+/* @var $this \yii\web\View */
+/* @var $content string */
+
+use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\widgets\Breadcrumbs;
+use frontend\assets\AppAsset;
+use common\widgets\Alert;
+
 $cookies_req = Yii::$app->request->cookies;
 $cookies_resp = Yii::$app->response->cookies;
 $id_bask =  $cookies_req->get('id_bask');
@@ -17,16 +27,6 @@ else
 			'value' => $id_bask,
 			'expire' => time()+60*60*24*24,
 	]));
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
-use common\widgets\Alert;
 
 AppAsset::register($this);
 ?>
@@ -55,6 +55,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+    	['label' => 'Groups', 'url' => ['/group/index']],
         //['label' => $cookies_req->get('id_bask'), 'url' => ['/site/about']],
     	//['label' => $session['user_id'], 'url' => ['/site/about']],
     		
@@ -90,7 +91,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Restaurant <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

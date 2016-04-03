@@ -2,15 +2,12 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
+use frontend\models\entry\Entry;
 ?>
-<h1>order/index</h1>
-
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
-</p>
+<h1>Order</h1>
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
@@ -36,10 +33,25 @@ use yii\widgets\ActiveForm;
     $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'number') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
-    </div>
+    <?php 
+    $user_id = Yii::$app->user->identity->id;
+    $groups = Entry::find()
+    	->where([
+    			'user_id' => $user_id,
+    			'status_user' => true,
+    	])
+    	->all(); 
+    $items = ArrayHelper::map($groups, 'group.id', 'group.name');
+    $params = [
+    		'prompt' => 'Select group'
+    ]; 
+    echo $form->field($model, 'group')->dropDownList($items, $params)?>
+    <?//= $form->field($model, 'group') ?>
+	
+	<?php if ($dataProvider->getCount() > 0) 
+        	echo Html::submitButton('Отправить', ['class' => 'btn btn-primary']);
+		 else 
+    		echo ('Невозможно отправить пустой заказ!'); ?>
 
 <?php ActiveForm::end();
         		

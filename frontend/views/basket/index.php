@@ -6,7 +6,7 @@ use yii\grid\GridView;
 ?>
 <?php $session = Yii::$app->session;
 echo $session->getFlash('editbasket');?>
-<h1>basket/index</h1>
+<h1>Basket</h1>
 <div class="dish-index">
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -15,21 +15,15 @@ echo $session->getFlash('editbasket');?>
         	//'id_basket',
         	//'id',
         	'dish.name',
-        	'price',
-        	
-        	['attribute' => 'Minus',
-        		'value' => function ($data) {
-        			return Html::a('[-]', Url::toRoute(['basket/edit', 'type' => 'minus', 'id_basket'=>$data->id_basket]));
-        					},
-        			'format' => 'raw',
-        	],
-        	'count',
-        	['attribute' => 'Plus',
-        		'value' => function ($data) {
-        			return Html::a('[+]', Url::toRoute(['basket/edit', 'type' => 'plus', 'id_basket'=>$data->id_basket]));
-        					},
-        		'footer' => 'Всего:',
-        		'format' => 'raw',
+        	'price', 	
+        	['attribute' => 'Count',
+        	'value' => function ($data) {
+        	return Html::a('[-]', Url::toRoute(['basket/edit', 'type' => 'minus', 'id_basket'=>$data->id_basket])).' '.
+        			$data->count.' '.
+        			Html::a('[+]', Url::toRoute(['basket/edit', 'type' => 'plus', 'id_basket'=>$data->id_basket]));
+        	},
+        	'format' => 'raw',
+        	'footer' => 'Всего:',
         	],
         	['attribute' => 'Summ',
         		'value' => function ($data) {
@@ -47,6 +41,8 @@ echo $session->getFlash('editbasket');?>
         //'showPageSummary' => true,
         'showFooter' => true,
     ]); 
-        		
-   echo Html::a('Оформить заказ', Url::toRoute(['order/index']));
+
+   if ($dataProvider->getCount() > 0)
+   		echo Html::a('Оформить заказ',  Url::toRoute(['order/index']), ['class' => 'btn btn-default']);
+
 ?>

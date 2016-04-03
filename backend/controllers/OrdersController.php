@@ -28,7 +28,7 @@ class OrdersController extends Controller
 	                [
 	                    //'actions' => ['create', 'delete', 'update', 'view'],
 	                    'allow' => true,
-	                	'actions' => ['create', 'update', 'view', 'index', 'delete', 'delconsist', 'statusfilter'],
+	                	'actions' => ['create', 'update', 'view', 'index', 'delete', 'alterstatus', 'delconsist', 'statusfilter'],
 	                    'roles' => ['manager'],
 	                ],
 	            ],

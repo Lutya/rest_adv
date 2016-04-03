@@ -51,11 +51,11 @@ class Orders extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
+            'user_id' => 'User',
             'order_status_id' => 'Order Status ID',
         	//'orderStatus.name' => 'Name order status',
             'date' => 'Date',
-            'number' => 'Number',
+            'number' => 'Number of phone',
             'delivery' => 'Delivery',
         ];
     }

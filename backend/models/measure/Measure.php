@@ -41,7 +41,7 @@ class Measure extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            //'id' => 'ID',
             'name' => 'Name',
             'full_name' => 'Full Name',
         ];
