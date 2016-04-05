@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use frontend\models\entry\Entry;
 use yii\data\ActiveDataProvider;
+use frontend\models\order_group_consist\OrderGroupConsist;
+use frontend\models\order_group\OrderGroup;
 
 /**
  * GroupController implements the CRUD actions for UserGroup model.
@@ -41,6 +43,7 @@ class GroupController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         $user_id = Yii::$app->user->identity->id;
+        
         //находим группы которыми владеет пользователь
         $owner_groups = UserGroup::find()
         	->where(['owner_id' => $user_id]);
@@ -48,8 +51,7 @@ class GroupController extends Controller
         		'query' => $owner_groups,
         		'pagination' => [
         				'pageSize' => 25,
-        		],
-        		
+        		],    		
         ]);
         
         //находим группы которыми в которых состоит пользователь
@@ -61,12 +63,7 @@ class GroupController extends Controller
         $entryProvider = new ActiveDataProvider([
         		'query' => $entry_groups,
         ]);
-        
-        //проверяем есль ли заявки на вступление в группу
-        
-        
-        
-        
+ 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -80,8 +77,10 @@ class GroupController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $filter = 'users')
     {
+    	//$filter = 'dishes';
+    	//проверяем состоит ли пользователь в этой группе
     	$user_id = Yii::$app->user->identity->id;
     	$in_group = Entry::find()
     		->where([
@@ -93,7 +92,9 @@ class GroupController extends Controller
     		//если не состоит в группе то не открывать
     	if ($in_group == 0)
     		throw new \Exception('You are not a member in the group!');
-    		
+    	
+    	//находим пользователей которые подали заявку чтобы войти в группу
+    	//отображается только владельцу
     	$users = Entry::find()
     		->where(['group_id' => $id,
     				'status_user' => false,
@@ -103,7 +104,7 @@ class GroupController extends Controller
     			'query' => $users,
     	]);
     	
-    	
+    	//находим всех кто состоит в группе
     	$usersInGroup = Entry::find()
     		->where(['group_id' => $id,
     				'status_user' => true,
@@ -112,10 +113,41 @@ class GroupController extends Controller
     	$usersIngroupProvider = new ActiveDataProvider([
     				'query' => $usersInGroup,
     		]);
+    	 
+    	//сумма всего группового заказа
+    	$total_sum = 0;
+    	$order_gr_cons = OrderGroupConsist::find()
+    		->where([
+    				'order_group.group_id' => $id,
+    				'order_group.order_status' => false,
+    		])
+    		->joinWith(['orderGroup']);
+    		//->all();
+    	
+    	//находим все блюда в заказе
+    	$dishProvider = new ActiveDataProvider([
+    			'query' => $order_gr_cons->select(['dish_id', 'SUM(count) AS count', 'order_group_id', 'user_id'])
+    						->groupBy(['dish_id', 'order_group_id']),
+    						//->sum('count'),
+    	]);
+    	
+    	foreach ($order_gr_cons->all() as $ogc) {
+    			$total_sum = $total_sum + $ogc->count * $ogc->dish->price;
+    		}
+    	
+    	//проверяем открытый ли заказ
+    	if ($total_sum == 0) 
+    		$order_open = false;
+    	else 
+    		$order_open = true;
         return $this->render('view', [
+        	'total_sum' => $total_sum,
         	'userProvider' => $userProvider,
         	'usersIngroupProvider' => $usersIngroupProvider,
             'model' => $this->findModel($id),
+        	'order_open' => $order_open,
+        	'dishProvider' => $dishProvider,
+        	'filter' => $filter,
         ]);
     }
 
@@ -187,7 +219,35 @@ class GroupController extends Controller
 
         return $this->redirect(['index']);
     }
+	
+    /**
+     * Updates an existing UserGroup model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $group_id
+     * @return mixed
+     */
+    public function actionConf($id)
+    {
+    	//нельзя подтверждать если ты не владелец
+    	$user_id = Yii::$app->user->identity->id;
+    	if ($user_id !== $this->findModel($id)->owner_id)
+    		throw new \Exception('You can not confirm this groups order!');
+    	
+    	$order_group = OrderGroup::find()
+    		->where([
+    				'group_id' => $id,
+    				'order_status' => false,
+    		])
+    		->one();
+    	$order_group->order_status = true;
+    	$order_group->save();
+    	
+    	$session = Yii::$app->session;
+    	$session->setFlash('orderConfirm', 'Заказ отправлен!');
 
+    	return $this->redirect(Yii::$app->request->referrer);
+    }
+    
     /**
      * Finds the UserGroup model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

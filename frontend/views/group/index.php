@@ -15,32 +15,49 @@ use frontend\models\entry\Entry;
 $this->title = 'User Groups';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+#leftcol { /* Левая колонка */
+  float: left; /* Обтекание справа */
+  width: 20%; /* Ширина колонки */
+}
+#rightcol { /* Правая колонка */
+  margin-left: 21%; /* Отступ слева */
+}
+</style>
+
 <?php $session = Yii::$app->session;
 	echo $session->getFlash('addEntry');?>
+
 <div class="user-group-index">
 
     <h1><?//= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <p><b>Groups, created you:</b></p>
+<div id="leftcol">
+	<b>Groups, created you:</b>
 	<?= ListView::widget([
     		'dataProvider' => $ownerProvider,
     		//'itemView' => '_post',
 			'itemView' => function ($model, $key, $index, $widget) {
 				return $this->render('_list_owner',['model' => $model]);
 			},
+			'summary'=>'',
 		]);
 	?>
+</div>
 	
-	<p><b>Groups:</b></p>
+<div id="rightcol">
+	<b>Groups party:</b>
 	<?= ListView::widget([
     		'dataProvider' => $entryProvider,
     		//'itemView' => '_post',
 			'itemView' => function ($model, $key, $index, $widget) {
 				return $this->render('_list_entry',['model' => $model]);
 			},
+			'summary'=>'',
 		]);
 	?>
-	
+</div>
+	<br>
 	
 	
 	
@@ -56,21 +73,21 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'name',
             [
+        		'attribute'=>'date',
+        		'value'=>'date',
+        		'headerOptions' => ['width' => '200'],
+        		'format'=>'raw',
+        		'filter'=>DatePicker::widget([
+        				'model'=>$searchModel,
         				'attribute'=>'date',
-        				'value'=>'date',
-        				'headerOptions' => ['width' => '200'],
-        				'format'=>'raw',
-        				'filter'=>DatePicker::widget([
-        						'model'=>$searchModel,
-        						'attribute'=>'date',
-        						'value' => date('Y-m-d'),
-        						'options' => ['placeholder' => 'Select date'],
-        						'pluginOptions' => [
-        								'format' => 'yyyy-mm-dd',
-        								'todayHighlight' => true
-        						]
-        				]),
-        		],
+        				'value' => date('Y-m-d'),
+        				'options' => ['placeholder' => 'Select date'],
+        				'pluginOptions' => [
+        					'format' => 'yyyy-mm-dd',
+        					'todayHighlight' => true
+        				]
+        		]),
+        	],
         	[
         		'attribute' => 'owner',
  				'value' => 'owner.username',
@@ -95,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        	'format' => 'raw',
         	],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

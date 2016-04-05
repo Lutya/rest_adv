@@ -10,6 +10,12 @@ class EntryController extends \yii\web\Controller
     public function actionAdd($group_id)
     {
     	$user_id = Yii::$app->user->identity->id;
+    	$session = Yii::$app->session;
+    	
+    	if (!isset($user_id)) {
+    			$session->setFlash('addEntry', 'Нужно сначала авторизироваться');
+    			return $this->redirect(Yii::$app->request->referrer);
+    		}
     	//проверяем не состоит ли пользователь в этой группе
     	$in_group = Entry::find()
     		->where([
@@ -17,10 +23,8 @@ class EntryController extends \yii\web\Controller
     			'group_id' => $group_id,
     		])
     		->count();
-    	if ($in_group > 0) {
-    		$session = Yii::$app->session;
+    	if ($in_group > 0) 
     		$session->setFlash('addEntry', 'Вы уже состоите в этой группе или уже подали заявку');
-    	}
     	else {
     		$entry = new Entry();
     		$entry->user_id = $user_id;
@@ -29,9 +33,9 @@ class EntryController extends \yii\web\Controller
     		$entry->status_user = 0; //false почему то записывает в базу
     		$entry->save();
     		 
-    		$session = Yii::$app->session;
     		$session->setFlash('addEntry', 'Заявка на вступление в группу подана! ');
     	}
+    	
         return $this->redirect(Yii::$app->request->referrer);
     }
     

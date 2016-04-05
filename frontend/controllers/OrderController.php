@@ -16,6 +16,7 @@ class OrderController extends \yii\web\Controller
 {
     public function actionIndex()
     {
+    	Yii::info('test message','orders_category');
     	$cookies =  Yii::$app->request->cookies;
     	$id_bask = $cookies->get('id_bask');
     	$query = Basket::find()

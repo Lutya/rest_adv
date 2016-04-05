@@ -1,0 +1,2 @@
+2016-04-05 12:55:42 [127.0.0.1][-][-][info][orders_category] test message
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\BasketController.php:86

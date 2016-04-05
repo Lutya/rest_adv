@@ -17,11 +17,18 @@ return [
             'enableAutoLogin' => true,
         ],
         'log' => [
+        	'flushInterval' => 1,
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'class' => 'yii\log\FileTarget',         
+                	'exportInterval' => 1,          
+                	'categories' => ['orders_category'],          
+                	'levels' => ['info'],          
+                	'logFile' => '@backend/orders_logs.txt',          
+                	'logVars' => []
+
+                    //'levels' => ['error', 'warning'],
                 ],
             ],
         ],

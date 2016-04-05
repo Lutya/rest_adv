@@ -15,19 +15,8 @@ use frontend\models\order_consist\OrderConsistSearch;
         'dataProvider' => $dataProvider,
         'columns' => [
         	['class' => 'yii\grid\SerialColumn'],
-        	[
-        		'label' => 'Photo',
-        		'format' => 'raw',
-        		'value' => function($data){
-        			return Html::img((Yii::getAlias('@imageurl').'/'.$data->dish->photo),[
-        				'alt'=>$data->dish->name,
-        				'style' => 'width:70px; height:70px; '
-        			]);
-        		},
-        		'contentOptions'=>[ 'style'=>'width: 100px'],
-        	],
-            'dish.name',
-        	'dish.price',
+            'user.username',
+        	//'dish.price',
             'count',
             [
             	'label' => 'Sum',
