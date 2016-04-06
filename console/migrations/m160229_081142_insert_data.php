@@ -30,7 +30,7 @@ class m160229_081142_insert_data extends Migration
 		]);
 		$this->insert('user', [
 				'id' => 4,
-				'username' => 'test3333',
+				'username' => 'test',
 				'email' => 'test@mailtest.ru',
 				'auth_key' => 'n_5RcH7zBHdyPOHpFzYyku6GTUh4yQVO',
 				'password_hash' => '$2y$13$4GQgpDShXhSPjfTSPgTEBuHd.nFzNJZKV18LV2GUrsQTsP5.aKcZi',

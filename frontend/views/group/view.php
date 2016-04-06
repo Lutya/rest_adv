@@ -7,6 +7,7 @@ use yii\widgets\DetailView;
 use kartik\grid\GridView;
 use frontend\models\order_group_consist\OrderGroupConsist;
 use yii\data\ActiveDataProvider;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\user_group\UserGroup */
@@ -71,7 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= Html::a('By dishes', ['view', 'id' => $model->id, 'filter' => 'dishes'], ['class' => 'btn btn-primary']);
 	
 	// заказ в разрезе пользователей
-	if ($filter == 'users') 
+	if ($filter == 'users') {
+		Pjax::begin();
 		echo GridView::widget([
 	        'dataProvider' => $usersIngroupProvider,
 	        'columns' => [
@@ -118,6 +120,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	       ],
 	       'showFooter' => true,
 	    ]);
+		Pjax::end();
+	}
 	else
 		//заказ в разрезе блюд
 		echo GridView::widget([
@@ -175,3 +179,4 @@ $this->params['breadcrumbs'][] = $this->title;
 	?>
    	</p>
 </div>
+

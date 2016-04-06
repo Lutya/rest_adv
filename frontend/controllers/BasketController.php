@@ -83,6 +83,7 @@ class BasketController extends \yii\web\Controller
 
     public function actionIndex()
     {
+    	//Yii::info('dsf', 'orders_group_category');
     	$session = Yii::$app->session;
     	$cookies =  Yii::$app->request->cookies;
     	$id_bask = $cookies->get('id_bask');

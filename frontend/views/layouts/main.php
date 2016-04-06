@@ -55,6 +55,17 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+    	[ 'label' => 'Menu', 'items' => [
+    				['label' => 'Салаты', 'url' => ['dishes/index', 'dish_type_id' => 1]],
+    				['label' => 'Закуски', 'url' => ['dishes/index', 'dish_type_id' => 2]],
+    				['label' => 'Первое', 'url' => ['dishes/index', 'dish_type_id' => 3]],
+    				['label' => 'Основное', 'url' => ['dishes/index', 'dish_type_id' => 4]],
+    				['label' => 'Паста', 'url' => ['dishes/index', 'dish_type_id' => 5]],
+    				['label' => 'Напитки', 'url' => ['dishes/index', 'dish_type_id' => 6]],
+    				['label' => 'Гарниры', 'url' => ['dishes/index', 'dish_type_id' => 7]],
+    				['label' => 'Десерты', 'url' => ['dishes/index', 'dish_type_id' => 8]],
+    				['label' => 'Фирмовые блюда', 'url' => ['dishes/index', 'dish_type_id' => 9]],
+    		]],
     	['label' => 'Groups', 'url' => ['/group/index']],
         //['label' => $cookies_req->get('id_bask'), 'url' => ['/site/about']],
     	//['label' => $session['user_id'], 'url' => ['/site/about']],

@@ -16,7 +16,6 @@ class OrderController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-    	Yii::info('test message','orders_category');
     	$cookies =  Yii::$app->request->cookies;
     	$id_bask = $cookies->get('id_bask');
     	$query = Basket::find()
@@ -39,13 +38,12 @@ class OrderController extends \yii\web\Controller
     		$username = Yii::$app->user->identity->username;
     		$user = User::findOne(['username' => $username]);
     		$message = 'Заказ отправлен. Менеджер с вами свяжется. Спасибо.'. $model->group;
-    		if (!isset($user)) {
+    		if (!isset($user)) 
     			$message = 'Нужно сначала авторизироваться';
-    		}
     		else {
     			//проверяем был ли указан груповой заказ
     			//если нет
-    			if (!isset($model->group)) {
+    			if ($model->group == null){//!isset($model->group)) {
     				//создаем заказ
     				$order_id = uniqid('OR');
     				$order = new Orders();
@@ -56,6 +54,9 @@ class OrderController extends \yii\web\Controller
     				$order->number = $model->number;
     				$order->delivery = 0;
     				$order->save();
+    				//записываем в лог
+    				Yii::info('Создан одиночный заказ: order_id: '.$order_id. ', username: '.$username.', date: '.date('Y-m-j')
+    						.'','orders_category');
     				 
     				// переносим из корзины в состав заказа
     				foreach ($basket as $bas) {
@@ -84,6 +85,10 @@ class OrderController extends \yii\web\Controller
     					$order_group->date = date('Y-m-j');
     					$order_group->number = $model->number;
     					$order_group->save();
+    					
+    					//записываем в лог
+    					Yii::info('Создан групповой заказ: order_group_id: '.$order_group_id. ', group_id: '.$model->group.' username: '.$username.', date: '
+    							.date('Y-m-j'), 'orders_group_category');
     					
     					// переносим из корзины в состав группового заказа
     					foreach ($basket as $bas) {
@@ -126,13 +131,14 @@ class OrderController extends \yii\web\Controller
     									'order_group_id' => $ord_gr_id,
     									'dish_id' => $bas->dish_id,
     							]);
-    							$ord_gr_cons->updateCounters(['count' => $bas->count]);
-    						}									
-    					}			
+    							$ord_gr_cons->updateCounters(['count' => $bas->count]);							
+    						}	
+    					}
+    					//записываем в лог
+    					Yii::info('Изменен групповой заказ: order_id:'.$ord_gr_id.', group_id: '.$model->group.' username: '.$username.', date: '
+    							.date('Y-m-j'), 'orders_group_category');
     				}
-    				
     				$message = 'Групповой заказ был отправлен!';
-    				
     			}	
     				
     			//удаляем корзину
@@ -145,10 +151,8 @@ class OrderController extends \yii\web\Controller
     					'name' => 'id_bask',
     					'value' => $uniq_id,
     					'expire' => time()+60*60*24*24,
-    			]));
-    							
+    			]));			  			
     		}
-    	
     		return $this->render('sendorder', ['model' => $model,
     				'message' => $message,
     		]);

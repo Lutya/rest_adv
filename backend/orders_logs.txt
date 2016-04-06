@@ -1,2 +1,44 @@
-2016-04-05 12:55:42 [127.0.0.1][-][-][info][orders_category] test message
-    in D:\USR\Ampps\www\rest_adv\frontend\controllers\BasketController.php:86
+2016-04-06 06:19:47 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Создан групповой заказ: order_group_id: OR5704aa8382771, group_id:  username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:91
+2016-04-06 06:19:47 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Отправлен групповой заказ: order_id:, group_id:  username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:145
+2016-04-06 06:28:31 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Создан групповой заказ: order_group_id: OR5704ac8f77205, group_id:  username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:91
+2016-04-06 06:28:31 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Отправлен групповой заказ: order_id:, group_id:  username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:145
+2016-04-06 06:30:58 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Создан групповой заказ: order_group_id: OR5704ad22849e5, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:91
+2016-04-06 06:30:58 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Отправлен групповой заказ: order_id:, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:145
+2016-04-06 06:31:58 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_category] Создан одиночный заказ: order_id: OR5704ad5e8fee9, username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:59
+2016-04-06 06:32:50 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Изменен групповой заказ: order_id:OR5704ad22849e5, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:139
+2016-04-06 06:32:50 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Отправлен групповой заказ: order_id:OR5704ad22849e5, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:145
+2016-04-06 06:38:42 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Создан групповой заказ: order_group_id: OR5704aef2da52b, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:91
+2016-04-06 06:38:43 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Отправлен групповой заказ: order_id:, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:158
+2016-04-06 06:43:28 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Изменен групповой заказ: order_id:OR5704aef2da52b, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:139
+2016-04-06 06:43:28 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Отправлен групповой заказ: order_id:OR5704aef2da52b, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:158
+2016-04-06 06:45:02 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Изменен групповой заказ: order_id:OR5704aef2da52b, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:139
+2016-04-06 06:45:17 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Отправлен групповой заказ: order_id:OR5704aef2da52b, group_id: 1 user_id: 1, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\GroupController.php:249
+2016-04-06 06:47:38 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_category] Создан одиночный заказ: order_id: OR5704b10aa1d93, username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:59
+2016-04-06 06:48:16 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_category] Создан одиночный заказ: order_id: OR5704b130c7728, username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:59
+2016-04-06 06:50:16 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_category] Создан одиночный заказ: order_id: OR5704b1a8a1469, username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:59
+2016-04-06 08:18:34 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Создан групповой заказ: order_group_id: OR5704c65a5e053, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:91
+2016-04-06 08:19:08 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Изменен групповой заказ: order_id:OR5704c65a5e053, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:139
+2016-04-06 08:46:43 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Изменен групповой заказ: order_id:OR5704c65a5e053, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:139
+2016-04-06 08:56:45 [127.0.0.1][1][1ubb6j6lucva33216nba3h48e1][info][orders_group_category] Изменен групповой заказ: order_id:OR5704c65a5e053, group_id: 1 username: admin, date: 2016-04-6
+    in D:\USR\Ampps\www\rest_adv\frontend\controllers\OrderController.php:139

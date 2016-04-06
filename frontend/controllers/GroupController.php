@@ -140,6 +140,7 @@ class GroupController extends Controller
     		$order_open = false;
     	else 
     		$order_open = true;
+    	
         return $this->render('view', [
         	'total_sum' => $total_sum,
         	'userProvider' => $userProvider,
@@ -244,6 +245,9 @@ class GroupController extends Controller
     	
     	$session = Yii::$app->session;
     	$session->setFlash('orderConfirm', 'Заказ отправлен!');
+    	//записываем в лог
+    	Yii::info('Отправлен групповой заказ: order_id:'.$order_group->id.', group_id: '.$id.' user_id: '.$user_id.', date: '
+    			.date('Y-m-j'), 'orders_group_category');
 
     	return $this->redirect(Yii::$app->request->referrer);
     }

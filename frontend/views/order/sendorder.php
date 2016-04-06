@@ -6,4 +6,6 @@ use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 ?>
 <h1>Order was send</h1>
+<?php $session = Yii::$app->session;
+   	$session['totalsum'] = 0; ?>
 <?= $message ?>
